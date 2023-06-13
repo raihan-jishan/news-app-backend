@@ -4,19 +4,16 @@
     date: 27 - 5 - 2023.
 
 */
-const express = require("express");
-const app = express();
-const port = 5000;
-const axios = require("axios");
-// routes
-app.get("/api", async (req, res) => {
-  console.log(req._parsedUrl.query);
-  let url =  "https://newsapi.org/v2/everything?"+req._parsedUrl.query
-  let r = await axios(url);
-  let a = r.data;
-  res.json(a);
+const express = require("express"); 
+const cors = require("cors"); 
+const { default: axios } = require("axios");
+const app = express(); 
+app.use(cors()); 
+app.get('/api', async (req , res) => {
+    console.log(req._parsedUrl.query);
+    let url = "https://newsapi.org/v2/everything?" + req._parsedUrl.query;
+    let r = await axios(url);
+    let result = r.data;
+    res.json(result);
 });
-// app listen
-app.listen(port, () => {
-  console.log(`app listening at ${port}`);
-});
+app.listen(4000); 
